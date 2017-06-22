@@ -1,13 +1,18 @@
 from tkinter import *
 from tkinter import filedialog as fd, ttk
 from tkinter.ttk import *
-
+import sys
+import codecs
+from docx import *
+from io import StringIO
 def openFile(*args):
-    # opens a filedialog
     filename = fd.askopenfilename()
     location = str(filename)
-    f = open(location,"r")
-    print(f.read())
+    document = Document(location)
+    s = ""
+    for paragraph in document.paragraphs:
+        s += str(paragraph.text.encode(errors='ignore'))
+    print(s)    
 
 def win_deleted():
     print("window closed ")
